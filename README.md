@@ -23,7 +23,7 @@
 
 ## Installation
 
-Soon out in across all digital stores...
+Soon out across all digital stores...
 
 ## Usage
 
