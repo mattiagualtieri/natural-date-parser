@@ -1,7 +1,7 @@
 package com.guti.tokenizer.word;
 
 import com.guti.tokenizer.Token;
-import com.guti.tokenizer.TokenType;
+import com.guti.tokenizer.constant.TokenType;
 import org.junit.jupiter.api.Test;
 
 import java.time.Month;
@@ -15,8 +15,8 @@ class WordTokenizerTest {
   @Test
   void tokenizeMonth() {
     Token token = wordTokenizer.tokenize("february");
-    assertEquals(TokenType.MONTH, token.getType());
-    assertEquals("february", token.getText());
-    assertEquals(Month.FEBRUARY, token.getValue());
+    assertEquals(TokenType.MONTH, token.type());
+    assertEquals("february", token.text());
+    assertEquals(Month.FEBRUARY, token.value());
   }
 }

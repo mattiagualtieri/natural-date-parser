@@ -1,26 +1,39 @@
 package com.guti.tokenizer.word;
 
 import com.guti.tokenizer.Token;
-import com.guti.tokenizer.TokenType;
+import com.guti.tokenizer.constant.Keyword;
+import com.guti.tokenizer.constant.TokenType;
 
-import java.util.Set;
+import java.util.Map;
+
+import static com.guti.tokenizer.constant.Keyword.*;
 
 public class KeywordWord implements Word {
 
-  public static final Set<String> KEYWORDS =
-      Set.of(
-          "next", "last", "this", "in", "ago", "at", "on", "after", "before", "from", "to", "until",
-          "by", "around", "about", "past", "of");
+  public static final Map<String, Keyword> KEYWORDS =
+      Map.ofEntries(
+          Map.entry("at", AT),
+          Map.entry("of", OF),
+          Map.entry("in", IN),
+          Map.entry("ago", AGO),
+          Map.entry("from", FROM),
+          Map.entry("day", DAY),
+          Map.entry("after", AFTER),
+          Map.entry("before", BEFORE),
+          Map.entry("next", NEXT),
+          Map.entry("this", THIS),
+          Map.entry("previous", PREVIOUS),
+          Map.entry("last", LAST));
 
   @Override
   public boolean contains(String word) {
-    return KEYWORDS.contains(word);
+    return KEYWORDS.containsKey(word);
   }
 
   @Override
   public Token tokenize(String word) {
     if (contains(word)) {
-      return new Token(TokenType.KEYWORD, word, word);
+      return new Token(TokenType.KEYWORD, word, Keyword.valueOf(word.toUpperCase()));
     }
     return new Token(TokenType.UNKNOWN, word, word);
   }

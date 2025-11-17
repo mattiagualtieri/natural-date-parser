@@ -1,9 +1,12 @@
 package com.guti.parser;
 
+import com.guti.tokenizer.constant.Keyword;
+
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 import java.time.*;
+import java.time.temporal.ChronoUnit;
 
 public class ParseContext {
 
@@ -23,10 +26,11 @@ public class ParseContext {
 
   // Weekday
   public DayOfWeek weekday = null;
-  public WeekModifier weekdayModifier = null; // WeekModifier: THIS, NEXT, LAST
+  public Keyword weekdayModifier = null; // WeekModifier: THIS, NEXT, LAST
 
   // Time
   public LocalTime explicitTime = null;
+  public Integer relativeMinutes = null;
   public Integer relativeHours = null;
 
   public ParseContext(LocalDateTime reference) {
@@ -43,12 +47,63 @@ public class ParseContext {
     return day != null || month != null || year != null;
   }
 
-  public void setRelativeDays(Integer relativeDays) {
-    this.relativeDays = relativeDays;
+  public void setRelative(Integer value, ChronoUnit unit) {
+    switch (unit) {
+      case MINUTES -> relativeMinutes = value;
+      case HOURS -> relativeHours = value;
+      case DAYS -> relativeDays = value;
+      case WEEKS -> relativeWeeks = value;
+      case MONTHS -> relativeMonths = value;
+      case YEARS -> relativeYears = value;
+    }
   }
 
-  public Integer getRelativeDays() {
-    return relativeDays;
+  public Integer getRelative(ChronoUnit unit) {
+    switch (unit) {
+      case MINUTES -> {
+        return relativeMinutes;
+      }
+      case HOURS -> {
+        return relativeHours;
+      }
+      case DAYS -> {
+        return relativeDays;
+      }
+      case WEEKS -> {
+        return relativeWeeks;
+      }
+      case MONTHS -> {
+        return relativeMonths;
+      }
+      case YEARS -> {
+        return relativeYears;
+      }
+    }
+    return 0;
+  }
+
+  public void setWeekday(DayOfWeek value) {
+    this.weekday = value;
+  }
+
+  public DayOfWeek getWeekday() {
+    return weekday;
+  }
+
+  public void setWeekdayModifier(Keyword value) {
+    this.weekdayModifier = value;
+  }
+
+  public Keyword getWeekdayModifier() {
+    return weekdayModifier;
+  }
+
+  public void setExplicitTime(LocalTime value) {
+    this.explicitTime = value;
+  }
+
+  public LocalTime getExplicitTime() {
+    return explicitTime;
   }
 
   // ========= Final resolution =========
@@ -117,22 +172,21 @@ public class ParseContext {
       return date.plusDays(diff);
     }
 
-    switch (weekdayModifier) {
-      case THIS:
+    return switch (weekdayModifier) {
+      case THIS -> {
         if (diff < 0) diff += 7; // move to same week forward
-        return date.plusDays(diff);
-
-      case NEXT:
+        yield date.plusDays(diff); // move to same week forward
+      }
+      case NEXT -> {
         if (diff <= 0) diff += 7; // always next week
-        return date.plusDays(diff);
-
-      case LAST:
+        yield date.plusDays(diff); // always next week
+      }
+      case LAST -> {
         if (diff >= 0) diff -= 7;
-        return date.plusDays(diff);
-
-      default:
-        return date;
-    }
+        yield date.plusDays(diff);
+      }
+      default -> date;
+    };
   }
 
   // --------------------------------------------
@@ -145,14 +199,5 @@ public class ParseContext {
     if (relativeHours != null) time = time.plusHours(relativeHours);
 
     return time;
-  }
-
-  // --------------------------------------------
-  // ENUM for weekday modifiers
-  // --------------------------------------------
-  public enum WeekModifier {
-    THIS,
-    NEXT,
-    LAST
   }
 }

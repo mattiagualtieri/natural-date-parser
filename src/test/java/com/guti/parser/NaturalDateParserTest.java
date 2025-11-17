@@ -9,7 +9,7 @@ class NaturalDateParserTest {
   @Test
   void test() {
     NaturalDateParser parser = NaturalDateParser.builder().build();
-    LocalDateTime date = parser.parse("30 APR");
+    LocalDateTime date = parser.parse("Next monday at 18");
     System.out.println(date);
   }
 }

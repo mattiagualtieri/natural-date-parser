@@ -2,17 +2,23 @@ package com.guti.parser.rule;
 
 import com.guti.parser.ParseContext;
 import com.guti.tokenizer.Token;
-import com.guti.tokenizer.TokenType;
+import com.guti.tokenizer.constant.TokenType;
 
 import java.util.List;
 
 public abstract class Rule {
 
+    // x AbsoluteDateRule
+    // x RelativeDayKeywordRule
+    // x RelativeQuantityRule
+    // WeekdayRule
+    // TimeRule
+
   private int matchedLength;
 
   public abstract List<List<TokenType>> getPatterns();
 
-  public abstract void apply(ParseContext ctx, List<Token> tokens, int pos);
+  public abstract boolean apply(ParseContext ctx, List<Token> tokens, int pos);
 
   public boolean matches(List<Token> tokens, int pos) {
     for (List<TokenType> pattern : getPatterns()) {
@@ -31,7 +37,7 @@ public abstract class Rule {
   private boolean matchesPattern(List<Token> tokens, int pos, List<TokenType> pattern) {
     if (pos + pattern.size() > tokens.size()) return false;
     for (int i = 0; i < pattern.size(); i++) {
-      if (tokens.get(pos + i).getType() != pattern.get(i)) {
+      if (tokens.get(pos + i).type() != pattern.get(i)) {
         return false;
       }
     }

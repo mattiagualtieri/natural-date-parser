@@ -1,6 +1,8 @@
 package com.guti.tokenizer;
 
 import com.guti.normalizer.Normalizer;
+import com.guti.tokenizer.constant.DateKeyword;
+import com.guti.tokenizer.constant.TokenType;
 import com.guti.tokenizer.word.WordTokenizer;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -21,21 +23,20 @@ class TokenizerTest {
 
   @ParameterizedTest
   @MethodSource("provideInputsForTokenizeBasicRelativeDay")
-  void tokenizeBasicRelativeDate(String input, Special expected) {
+  void tokenizeBasicRelativeDate(String input, DateKeyword expected) {
     List<Token> result = tokenizer.tokenize(input);
     assertNotNull(result);
     assertEquals(1, result.size());
     assertEquals(
-        new Token(TokenType.SPECIAL_DAY, input.replace(" ", "_").toLowerCase(), expected),
+        new Token(TokenType.DATE_KEYWORD, input.replace(" ", "_").toLowerCase(), expected),
         result.get(0));
   }
 
   private static Stream<Arguments> provideInputsForTokenizeBasicRelativeDay() {
     return Stream.of(
-        Arguments.of("Today", Special.TODAY),
-        Arguments.of("Tomorrow", Special.TOMORROW),
-        Arguments.of("Yesterday", Special.YESTERDAY),
-        Arguments.of("Day after tomorrow", Special.DAY_AFTER_TOMORROW));
+        Arguments.of("Today", DateKeyword.TODAY),
+        Arguments.of("Tomorrow", DateKeyword.TOMORROW),
+        Arguments.of("Yesterday", DateKeyword.YESTERDAY));
   }
 
   @ParameterizedTest

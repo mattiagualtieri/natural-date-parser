@@ -1,7 +1,7 @@
 package com.guti.tokenizer.word;
 
 import com.guti.tokenizer.Token;
-import com.guti.tokenizer.TokenType;
+import com.guti.tokenizer.constant.TokenType;
 
 import java.util.List;
 
@@ -12,10 +12,9 @@ public class WordTokenizer {
           new MonthWord(),
           new WeekdayWord(),
           new KeywordWord(),
-          new SpecialDayWord(),
-          new SpecialTimeWord(),
+          new DateKeywordWord(),
+          new TimeKeywordWord(),
           new UnitWord(),
-          new MeridiemWord(),
           new NumberWord(),
           new TimeWord(),
           new OrdinalWord());

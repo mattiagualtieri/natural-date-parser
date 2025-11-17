@@ -13,10 +13,9 @@ public class TestUtils {
           new MonthWord(),
           new WeekdayWord(),
           new KeywordWord(),
-          new SpecialDayWord(),
-          new SpecialTimeWord(),
+          new DateKeywordWord(),
+          new TimeKeywordWord(),
           new UnitWord(),
-          new MeridiemWord(),
           new NumberWord(),
           new TimeWord(),
           new OrdinalWord());

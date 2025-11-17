@@ -1,4 +1,4 @@
-package com.guti.tokenizer;
+package com.guti.tokenizer.constant;
 
 public enum TokenType {
   NUMBER,
@@ -7,11 +7,10 @@ public enum TokenType {
   YEAR,
   WEEKDAY,
   TIME,
-  MERIDIEM,
   UNIT,
   KEYWORD,
-  SPECIAL_DAY,
-  SPECIAL_TIME,
+  DATE_KEYWORD,
+  TIME_KEYWORD,
   PUNCTUATION,
   UNKNOWN,
   EOF

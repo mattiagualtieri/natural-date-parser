@@ -7,8 +7,10 @@ import com.guti.parser.ParseContext;
 import com.guti.tokenizer.Token;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -32,16 +34,6 @@ public class RelativeDateKeywordRuleTest {
     assertEquals(expectedMatchLength, matchLength);
   }
 
-  @ParameterizedTest
-  @MethodSource("provideInputsForShouldApplyCorrectly")
-  void shouldApplyCorrectly(List<Token> inputTokens, Integer expectedRelativeDays) {
-    LocalDateTime reference = LocalDateTime.of(2026, 6, 15, 12, 0);
-    ParseContext ctx = new ParseContext(reference);
-    rule.matches(inputTokens, 0);
-    rule.apply(ctx, inputTokens, 0);
-    assertEquals(expectedRelativeDays, ctx.getRelativeDays());
-  }
-
   private static Stream<Arguments> provideInputsForShouldMatchCorrectPatterns() {
     return Stream.of(
         Arguments.of(List.of(tokenOf("Today")), 1),
@@ -49,6 +41,16 @@ public class RelativeDateKeywordRuleTest {
         Arguments.of(List.of(tokenOf("Yesterday")), 1),
         Arguments.of(List.of(tokenOf("Day before yesterday")), 1),
         Arguments.of(List.of(tokenOf("Day after tomorrow")), 1));
+  }
+
+  @ParameterizedTest
+  @MethodSource("provideInputsForShouldApplyCorrectly")
+  void shouldApplyCorrectly(List<Token> inputTokens, Integer expectedRelativeDays) {
+    LocalDateTime reference = LocalDateTime.of(2026, 6, 15, 12, 0);
+    ParseContext ctx = new ParseContext(reference);
+    rule.matches(inputTokens, 0);
+    rule.apply(ctx, inputTokens, 0);
+    assertEquals(expectedRelativeDays, ctx.getRelative(ChronoUnit.DAYS));
   }
 
   private static Stream<Arguments> provideInputsForShouldApplyCorrectly() {
