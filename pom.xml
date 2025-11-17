@@ -6,7 +6,33 @@
 
     <groupId>com.guti</groupId>
     <artifactId>natural-date-parser</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
+
+    <name>Natural Date Parser</name>
+    <description>A minimal library to parse dates from natural language to java.time.LocalDateTime objects</description>
+    <url>https://github.com/mattiagualtieri/natural-date-parser</url>
+
+    <licenses>
+        <license>
+            <name>The MIT License</name>
+            <url>https://opensource.org/license/mit</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Mattia Gualtieri</name>
+            <organization>None</organization>
+            <organizationUrl>https://github.com/mattiagualtieri</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/mattiagualtieri/natural-date-parser.git</connection>
+        <developerConnection>scm:git:ssh://github.com/mattiagualtieri/natural-date-parser.git</developerConnection>
+        <url>https://github.com/mattiagualtieri/natural-date-parser</url>
+    </scm>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
