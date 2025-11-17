@@ -1,6 +1,6 @@
 package com.guti;
 
-import com.guti.normalizer.Normalizer;
+import com.guti.normalizer.pipeline.DefaultNormalizationPipeline;
 import com.guti.tokenizer.Token;
 import com.guti.tokenizer.word.*;
 
@@ -20,7 +20,7 @@ public class TestUtils {
           new TimeWord(),
           new OrdinalWord());
 
-  private static final Normalizer normalizer = new Normalizer();
+  private static final DefaultNormalizationPipeline normalizer = new DefaultNormalizationPipeline();
 
   public static Token tokenOf(String word) {
     String normalized = normalizer.normalize(word);

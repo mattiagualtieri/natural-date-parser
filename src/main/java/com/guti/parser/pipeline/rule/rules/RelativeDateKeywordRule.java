@@ -28,8 +28,8 @@ public class RelativeDateKeywordRule extends Rule {
     switch (value) {
       case YESTERDAY -> ctx.setRelative(-1, ChronoUnit.DAYS);
       case TOMORROW -> ctx.setRelative(1, ChronoUnit.DAYS);
-      // case DAY_BEFORE_YESTERDAY -> ctx.setRelative(-2, ChronoUnit.DAYS);
-      // case DAY_AFTER_TOMORROW -> ctx.setRelative(2, ChronoUnit.DAYS);
+      case DAY_BEFORE_YESTERDAY -> ctx.setRelative(-2, ChronoUnit.DAYS);
+      case DAY_AFTER_TOMORROW -> ctx.setRelative(2, ChronoUnit.DAYS);
       default -> ctx.setRelative(0, ChronoUnit.DAYS);
     }
 

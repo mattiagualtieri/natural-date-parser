@@ -12,7 +12,5 @@ public enum TokenType {
   KEYWORD,
   DATE_KEYWORD,
   TIME_KEYWORD,
-  PUNCTUATION,
-  UNKNOWN,
-  EOF
+  UNKNOWN
 }

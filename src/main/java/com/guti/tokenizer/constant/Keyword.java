@@ -6,11 +6,7 @@ public enum Keyword {
   IN,
   AGO,
   FROM,
-  DAY,
-  AFTER,
-  BEFORE,
   NEXT,
   THIS,
-  PREVIOUS,
   LAST
 }

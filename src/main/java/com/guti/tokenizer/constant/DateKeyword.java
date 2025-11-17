@@ -3,5 +3,7 @@ package com.guti.tokenizer.constant;
 public enum DateKeyword {
   TODAY,
   TOMORROW,
-  YESTERDAY
+  YESTERDAY,
+  DAY_AFTER_TOMORROW,
+  DAY_BEFORE_YESTERDAY,
 }

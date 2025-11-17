@@ -1,6 +1,6 @@
 package com.guti.parser;
 
-import com.guti.normalizer.Normalizer;
+import com.guti.normalizer.pipeline.DefaultNormalizationPipeline;
 import com.guti.parser.pipeline.ParsePipeline;
 import com.guti.parser.pipeline.rule.RuleBasedParsePipeline;
 import com.guti.tokenizer.Tokenizer;
@@ -10,7 +10,7 @@ public class NaturalDateParserBuilder {
 
   private final NaturalDateParser parser;
   private static final Tokenizer defaultTokenizer =
-      new Tokenizer(new Normalizer(), new WordTokenizer());
+      new Tokenizer(new DefaultNormalizationPipeline(), new WordTokenizer());
   private static final ParsePipeline defaultParsePipeline = new RuleBasedParsePipeline();
 
   public NaturalDateParserBuilder() {

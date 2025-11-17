@@ -1,18 +1,17 @@
 package com.guti.tokenizer;
 
-import com.guti.normalizer.Normalizer;
+import com.guti.normalizer.pipeline.DefaultNormalizationPipeline;
+import com.guti.normalizer.pipeline.NormalizationPipeline;
 import com.guti.tokenizer.word.WordTokenizer;
 
-import java.time.*;
 import java.util.*;
-import java.util.regex.*;
 
 public final class Tokenizer {
 
-  private final Normalizer normalizer;
+  private final NormalizationPipeline normalizer;
   private final WordTokenizer wordTokenizer;
 
-  public Tokenizer(Normalizer normalizer, WordTokenizer wordTokenizer) {
+  public Tokenizer(DefaultNormalizationPipeline normalizer, WordTokenizer wordTokenizer) {
     this.normalizer = normalizer;
     this.wordTokenizer = wordTokenizer;
   }

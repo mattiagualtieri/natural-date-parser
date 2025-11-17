@@ -13,7 +13,9 @@ public class DateKeywordWord implements Word {
       Map.ofEntries(
           Map.entry("today", TODAY),
           Map.entry("tomorrow", TOMORROW),
-          Map.entry("yesterday", YESTERDAY));
+          Map.entry("yesterday", YESTERDAY),
+          Map.entry("day_before_yesterday", DAY_BEFORE_YESTERDAY),
+          Map.entry("day_after_tomorrow", DAY_AFTER_TOMORROW));
 
   @Override
   public boolean contains(String word) {

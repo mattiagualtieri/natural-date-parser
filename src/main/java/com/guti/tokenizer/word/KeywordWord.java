@@ -17,12 +17,8 @@ public class KeywordWord implements Word {
           Map.entry("in", IN),
           Map.entry("ago", AGO),
           Map.entry("from", FROM),
-          Map.entry("day", DAY),
-          Map.entry("after", AFTER),
-          Map.entry("before", BEFORE),
           Map.entry("next", NEXT),
           Map.entry("this", THIS),
-          Map.entry("previous", PREVIOUS),
           Map.entry("last", LAST));
 
   @Override
