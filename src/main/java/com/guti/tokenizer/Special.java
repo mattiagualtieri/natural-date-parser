@@ -1,0 +1,16 @@
+package com.guti.tokenizer;
+
+public enum Special {
+  TODAY,
+  TOMORROW,
+  YESTERDAY,
+  NOW,
+  NOON,
+  MIDNIGHT,
+  TONIGHT,
+  THIS_MORNING,
+  THIS_AFTERNOON,
+  THIS_EVENING,
+  DAY_AFTER_TOMORROW,
+  DAY_BEFORE_YESTERDAY
+}
