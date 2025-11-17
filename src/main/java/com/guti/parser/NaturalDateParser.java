@@ -1,5 +1,7 @@
 package com.guti.parser;
 
+import com.guti.parser.pipeline.ParsePipeline;
+import com.guti.parser.pipeline.rule.RuleBasedParsePipeline;
 import com.guti.tokenizer.Token;
 import com.guti.tokenizer.Tokenizer;
 
@@ -9,20 +11,20 @@ import java.util.List;
 public class NaturalDateParser {
 
   private final Tokenizer tokenizer;
+  private final ParsePipeline pipeline;
 
-  public NaturalDateParser(Tokenizer tokenizer) {
+  public NaturalDateParser(Tokenizer tokenizer, ParsePipeline pipeline) {
     this.tokenizer = tokenizer;
+    this.pipeline = pipeline;
   }
 
   public LocalDateTime parse(String input) {
+    return parse(input, LocalDateTime.now());
+  }
+
+  public LocalDateTime parse(String input, LocalDateTime reference) {
     List<Token> tokens = tokenizer.tokenize(input);
-
-    ParsePipeline pipeline = new ParsePipeline();
-    return pipeline.parse(tokens);
-
-    // Node node = grammar.parse(tokens);
-    // Resolver resolver = new Resolver(LocalDateTime.now());
-    // return resolver.resolve(node);
+    return pipeline.parse(tokens, reference);
   }
 
   public static NaturalDateParserBuilder builder() {

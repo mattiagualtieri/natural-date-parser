@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
 
 public class TimeWord implements Word {
 
-  private static final Pattern TIME_REGEX = Pattern.compile("(\\d{1,2})(?::(\\d{2}))?\\s*(am|pm)?");
+  private static final Pattern TIME_REGEX =
+      Pattern.compile("(\\d{1,2})(?::(\\d{2}))?\\s*(a\\.?m?\\.?|p\\.?m?\\.?)?");
 
   @Override
   public boolean contains(String word) {

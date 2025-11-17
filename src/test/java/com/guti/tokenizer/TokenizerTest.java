@@ -2,7 +2,9 @@ package com.guti.tokenizer;
 
 import com.guti.normalizer.Normalizer;
 import com.guti.tokenizer.constant.DateKeyword;
+import com.guti.tokenizer.constant.Keyword;
 import com.guti.tokenizer.constant.TokenType;
+import com.guti.tokenizer.word.KeywordWord;
 import com.guti.tokenizer.word.WordTokenizer;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -46,7 +48,7 @@ class TokenizerTest {
     List<Token> result = tokenizer.tokenize(input);
     assertNotNull(result);
     assertEquals(3, result.size());
-    assertEquals(new Token(TokenType.KEYWORD, "in", "in"), result.get(0));
+    assertEquals(new Token(TokenType.KEYWORD, "in", Keyword.IN), result.get(0));
     assertEquals(
         new Token(TokenType.NUMBER, inputParts[1].toLowerCase(), expectedTime), result.get(1));
     assertEquals(

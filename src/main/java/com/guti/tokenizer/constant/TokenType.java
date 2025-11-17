@@ -8,6 +8,7 @@ public enum TokenType {
   WEEKDAY,
   TIME,
   UNIT,
+  MERIDIEM,
   KEYWORD,
   DATE_KEYWORD,
   TIME_KEYWORD,

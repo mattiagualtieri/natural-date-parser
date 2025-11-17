@@ -1,6 +1,7 @@
-package com.guti.parser.rule;
+package com.guti.parser.pipeline.rule.rules;
 
-import com.guti.parser.ParseContext;
+import com.guti.parser.pipeline.ParseContext;
+import com.guti.parser.pipeline.rule.Rule;
 import com.guti.tokenizer.Token;
 import com.guti.tokenizer.constant.DateKeyword;
 import com.guti.tokenizer.constant.TokenType;

@@ -4,7 +4,8 @@ import static com.guti.TestUtils.tokenOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.guti.parser.ParseContext;
+import com.guti.parser.pipeline.ParseContext;
+import com.guti.parser.pipeline.rule.rules.TimeRule;
 import com.guti.tokenizer.Token;
 
 import java.time.LocalDateTime;

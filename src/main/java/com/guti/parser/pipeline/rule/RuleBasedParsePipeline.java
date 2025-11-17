@@ -1,12 +1,14 @@
-package com.guti.parser;
+package com.guti.parser.pipeline.rule;
 
-import com.guti.parser.rule.*;
+import com.guti.parser.pipeline.ParseContext;
+import com.guti.parser.pipeline.ParsePipeline;
+import com.guti.parser.pipeline.rule.rules.*;
 import com.guti.tokenizer.Token;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class ParsePipeline {
+public class RuleBasedParsePipeline implements ParsePipeline {
 
   private final List<Rule> rules =
       List.of(
@@ -16,8 +18,9 @@ public class ParsePipeline {
           new WeekdayRule(),
           new TimeRule());
 
-  public LocalDateTime parse(List<Token> tokens) {
-    ParseContext ctx = new ParseContext(LocalDateTime.now());
+  @Override
+  public LocalDateTime parse(List<Token> tokens, LocalDateTime reference) {
+    ParseContext ctx = new ParseContext(reference);
 
     int pos = 0;
     while (pos < tokens.size()) {

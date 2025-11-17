@@ -5,7 +5,8 @@ import static com.guti.tokenizer.constant.Keyword.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.guti.parser.ParseContext;
+import com.guti.parser.pipeline.ParseContext;
+import com.guti.parser.pipeline.rule.rules.WeekdayRule;
 import com.guti.tokenizer.Token;
 
 import java.time.DayOfWeek;

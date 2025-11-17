@@ -1,6 +1,7 @@
 package com.guti.parser.rule;
 
-import com.guti.parser.ParseContext;
+import com.guti.parser.pipeline.ParseContext;
+import com.guti.parser.pipeline.rule.rules.RelativeQuantityRule;
 import com.guti.tokenizer.Token;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;

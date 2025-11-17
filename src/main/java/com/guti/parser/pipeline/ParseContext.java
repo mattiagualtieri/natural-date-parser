@@ -1,4 +1,4 @@
-package com.guti.parser;
+package com.guti.parser.pipeline;
 
 import com.guti.tokenizer.constant.Keyword;
 
@@ -151,6 +151,10 @@ public class ParseContext {
 
     if (relativeWeeks != null) date = date.plusWeeks(relativeWeeks);
 
+    if (relativeMonths != null) date = date.plusMonths(relativeMonths);
+
+    if (relativeYears != null) date = date.plusYears(relativeYears);
+
     return date;
   }
 
@@ -195,6 +199,8 @@ public class ParseContext {
 
   private LocalTime resolveTime(LocalTime referenceTime) {
     LocalTime time = (explicitTime != null) ? explicitTime : referenceTime;
+
+    if (relativeMinutes != null) time = time.plusMinutes(relativeMinutes);
 
     if (relativeHours != null) time = time.plusHours(relativeHours);
 

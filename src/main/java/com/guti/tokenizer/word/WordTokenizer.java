@@ -17,7 +17,8 @@ public class WordTokenizer {
           new UnitWord(),
           new NumberWord(),
           new TimeWord(),
-          new OrdinalWord());
+          new OrdinalWord(),
+          new MeridiemWord());
 
   public Token tokenize(String word) {
     for (Word strategy : strategies) {

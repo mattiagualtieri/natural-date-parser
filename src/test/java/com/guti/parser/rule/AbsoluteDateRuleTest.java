@@ -1,5 +1,6 @@
 package com.guti.parser.rule;
 
+import com.guti.parser.pipeline.rule.rules.AbsoluteDateRule;
 import com.guti.tokenizer.Token;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
