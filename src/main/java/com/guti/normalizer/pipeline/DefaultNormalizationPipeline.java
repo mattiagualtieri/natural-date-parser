@@ -8,6 +8,11 @@ public class DefaultNormalizationPipeline extends NormalizationPipeline {
 
   @Override
   public List<Normalizer> getNormalizers() {
-    return List.of(new LowerCaseNormalizer(), new CharacterNormalizer(), new MultiWordNormalizer());
+    return List.of(
+        new LowerCaseNormalizer(),
+        new CharacterNormalizer(),
+        new WhitespaceNormalizer(),
+        new NumberWordNormalizer(),
+        new MultiWordNormalizer());
   }
 }
