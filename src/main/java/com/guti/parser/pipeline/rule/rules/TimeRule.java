@@ -14,6 +14,8 @@ public class TimeRule extends Rule {
 
   private final List<Pattern> patterns =
       List.of(
+          getAtHourMinuteMeridiemPattern(),
+          getAtHourMinutePattern(),
           getAtTimeMeridiemPattern(),
           getAtNumberMeridiemPattern(),
           getHourMinuteMeridiemPattern(),
@@ -27,6 +29,58 @@ public class TimeRule extends Rule {
   @Override
   public List<Pattern> getPatterns() {
     return patterns;
+  }
+
+  private Pattern getAtHourMinuteMeridiemPattern() {
+    return Pattern.of(
+        "AT_HOUR_MINUTE_MERIDIEM",
+        (tokens, ctx) -> {
+          if (tokens.get(0).value() != AT) {
+            return false;
+          }
+          Integer hours = (Integer) tokens.get(1).value();
+          if (hours < 0 || hours > 24) {
+            return false;
+          }
+          Integer minutes = (Integer) tokens.get(2).value();
+          if (minutes < 0 || minutes > 59) {
+            return false;
+          }
+          if (hours < 12 && tokens.get(3).value() == MeridiemKeyword.PM) {
+            hours += 12;
+          }
+          LocalTime value = LocalTime.of(hours, minutes);
+          ctx.setExplicitTime(value);
+          return true;
+        },
+        KEYWORD,
+        NUMBER,
+        NUMBER,
+        MERIDIEM);
+  }
+
+  private Pattern getAtHourMinutePattern() {
+    return Pattern.of(
+        "AT_HOUR_MINUTE",
+        (tokens, ctx) -> {
+          if (tokens.get(0).value() != AT) {
+            return false;
+          }
+          Integer hours = (Integer) tokens.get(1).value();
+          if (hours < 0 || hours > 24) {
+            return false;
+          }
+          Integer minutes = (Integer) tokens.get(2).value();
+          if (minutes < 0 || minutes > 59) {
+            return false;
+          }
+          LocalTime value = LocalTime.of(hours, minutes);
+          ctx.setExplicitTime(value);
+          return true;
+        },
+        KEYWORD,
+        NUMBER,
+        NUMBER);
   }
 
   private Pattern getAtTimeMeridiemPattern() {
