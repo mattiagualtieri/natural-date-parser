@@ -73,6 +73,7 @@ class NaturalDateParserTest {
         Arguments.of("2 weeks ago", reference, LocalDateTime.of(2026, 6, 1, 12, 0)),
         Arguments.of("2 months ago", reference, LocalDateTime.of(2026, 4, 15, 12, 0)),
         Arguments.of("2 years ago", reference, LocalDateTime.of(2024, 6, 15, 12, 0)),
+        Arguments.of("Three thirty AM on Sunday, March 12th, 2023", reference, LocalDateTime.of(2023, 3, 12, 3, 30)),
         Arguments.of("Yesterday", reference, reference.minusDays(1)));
   }
 }

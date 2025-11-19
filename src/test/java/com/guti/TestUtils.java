@@ -17,8 +17,7 @@ public class TestUtils {
           new TimeKeywordWord(),
           new UnitWord(),
           new NumberWord(),
-          new TimeWord(),
-          new OrdinalWord());
+          new TimeWord());
 
   private static final DefaultNormalizationPipeline normalizer = new DefaultNormalizationPipeline();
 

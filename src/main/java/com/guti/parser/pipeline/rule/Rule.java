@@ -1,29 +1,32 @@
 package com.guti.parser.pipeline.rule;
 
 import com.guti.parser.pipeline.ParseContext;
+import com.guti.parser.pipeline.rule.pattern.Pattern;
 import com.guti.tokenizer.Token;
-import com.guti.tokenizer.constant.TokenType;
 
 import java.util.List;
 
 public abstract class Rule {
 
-    // x AbsoluteDateRule
-    // x RelativeDayKeywordRule
-    // x RelativeQuantityRule
-    // WeekdayRule
-    // TimeRule
-
   private int matchedLength;
 
-  public abstract List<List<TokenType>> getPatterns();
+  private int matchedPatternIndex;
 
-  public abstract boolean apply(ParseContext ctx, List<Token> tokens, int pos);
+  public abstract List<Pattern> getPatterns();
+
+  public boolean apply(ParseContext ctx, List<Token> tokens, int pos) {
+    List<Token> slice = tokens.subList(pos, pos + length());
+    Pattern pattern = getPatterns().get(getMatchedPatternIndex());
+    return pattern.resolve(slice, ctx);
+  }
 
   public boolean matches(List<Token> tokens, int pos) {
-    for (List<TokenType> pattern : getPatterns()) {
-      if (matchesPattern(tokens, pos, pattern)) {
-        matchedLength = pattern.size();
+    List<Token> slice = tokens.subList(pos, tokens.size());
+    for (int i = 0; i < getPatterns().size(); i++) {
+      Pattern pattern = getPatterns().get(i);
+      if (pattern.matches(slice)) {
+        matchedLength = pattern.length();
+        matchedPatternIndex = i;
         return true;
       }
     }
@@ -34,13 +37,7 @@ public abstract class Rule {
     return matchedLength;
   }
 
-  private boolean matchesPattern(List<Token> tokens, int pos, List<TokenType> pattern) {
-    if (pos + pattern.size() > tokens.size()) return false;
-    for (int i = 0; i < pattern.size(); i++) {
-      if (tokens.get(pos + i).type() != pattern.get(i)) {
-        return false;
-      }
-    }
-    return true;
+  public int getMatchedPatternIndex() {
+    return matchedPatternIndex;
   }
 }

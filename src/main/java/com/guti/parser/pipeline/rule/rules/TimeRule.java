@@ -3,65 +3,148 @@ package com.guti.parser.pipeline.rule.rules;
 import static com.guti.tokenizer.constant.Keyword.*;
 import static com.guti.tokenizer.constant.TokenType.*;
 
-import com.guti.parser.pipeline.ParseContext;
 import com.guti.parser.pipeline.rule.Rule;
-import com.guti.tokenizer.Token;
+import com.guti.parser.pipeline.rule.pattern.Pattern;
 import com.guti.tokenizer.constant.MeridiemKeyword;
-import com.guti.tokenizer.constant.TokenType;
 
 import java.time.LocalTime;
-import java.time.temporal.Temporal;
 import java.util.List;
 
 public class TimeRule extends Rule {
 
-  private final List<List<TokenType>> patterns =
+  private final List<Pattern> patterns =
       List.of(
-          List.of(KEYWORD, TIME, MERIDIEM),
-          List.of(KEYWORD, NUMBER, MERIDIEM),
-          List.of(KEYWORD, TIME),
-          List.of(KEYWORD, NUMBER),
-          List.of(KEYWORD, TIME_KEYWORD),
-          List.of(TIME, MERIDIEM),
-          List.of(TIME),
-          List.of(TIME_KEYWORD));
+          getAtTimeMeridiemPattern(),
+          getAtNumberMeridiemPattern(),
+          getAtTimePattern(),
+          getAtNumberPattern(),
+          getAtTimePattern(),
+          getAtTimeKeywordPattern(),
+          getTimeMeridiemPattern(),
+          getTimePattern(),
+          getTimeKeywordPattern());
 
   @Override
-  public List<List<TokenType>> getPatterns() {
+  public List<Pattern> getPatterns() {
     return patterns;
   }
 
-  @Override
-  public boolean apply(ParseContext ctx, List<Token> tokens, int pos) {
-    List<Token> slice = tokens.subList(pos, pos + this.length());
+  private Pattern getAtTimeMeridiemPattern() {
+    return Pattern.of(
+        "AT_TIME_MERIDIEM",
+        (tokens, ctx) -> {
+          if (tokens.get(0).value() != AT) {
+            return false;
+          }
+          LocalTime value = (LocalTime) tokens.get(1).value();
+          if (value.getHour() < 12 && tokens.get(2).value() == MeridiemKeyword.PM) {
+            value = value.plusHours(12);
+          }
+          ctx.setExplicitTime(value);
+          return true;
+        },
+        KEYWORD,
+        TIME,
+        MERIDIEM);
+  }
 
-    if (slice.get(0).type() == KEYWORD) {
-      if (slice.get(0).value() != AT) {
-        return false;
-      }
-      if (slice.get(1).type() == NUMBER) {
-        Integer number = (Integer) slice.get(1).value();
-        if (slice.size() == 3 && number < 12 && slice.get(2).value() == MeridiemKeyword.PM) {
-          number += 12;
-        }
-        LocalTime value = LocalTime.of(number, 0);
-        ctx.setExplicitTime(value);
-        return true;
-      } else {
-        LocalTime value = (LocalTime) slice.get(1).value();
-        if (slice.size() == 3
-            && value.getHour() < 12
-            && slice.get(2).value() == MeridiemKeyword.PM) {
-          value = value.plusHours(12);
-        }
-        ctx.setExplicitTime(value);
-        return true;
-      }
-    }
+  private Pattern getAtNumberMeridiemPattern() {
+    return Pattern.of(
+        "AT_NUMBER_MERIDIEM",
+        (tokens, ctx) -> {
+          if (tokens.get(0).value() != AT) {
+            return false;
+          }
+          Integer number = (Integer) tokens.get(1).value();
+          if (number < 12 && tokens.get(2).value() == MeridiemKeyword.PM) {
+            number += 12;
+          }
+          LocalTime value = LocalTime.of(number, 0);
+          ctx.setExplicitTime(value);
+          return true;
+        },
+        KEYWORD,
+        NUMBER,
+        MERIDIEM);
+  }
 
-    LocalTime value = (LocalTime) slice.get(0).value();
-    ctx.setExplicitTime(value);
+  private Pattern getAtTimePattern() {
+    return Pattern.of(
+        "AT_TIME",
+        (tokens, ctx) -> {
+          if (tokens.get(0).value() != AT) {
+            return false;
+          }
+          LocalTime value = (LocalTime) tokens.get(1).value();
+          ctx.setExplicitTime(value);
+          return true;
+        },
+        KEYWORD,
+        TIME);
+  }
 
-    return true;
+  private Pattern getAtNumberPattern() {
+    return Pattern.of(
+        "AT_NUMBER",
+        (tokens, ctx) -> {
+          Integer number = (Integer) tokens.get(1).value();
+          LocalTime value = LocalTime.of(number, 0);
+          ctx.setExplicitTime(value);
+          return true;
+        },
+        KEYWORD,
+        TIME);
+  }
+
+  private Pattern getAtTimeKeywordPattern() {
+    return Pattern.of(
+        "AT_TIMEKEYWORD",
+        (tokens, ctx) -> {
+          if (tokens.get(0).value() != AT) {
+            return false;
+          }
+          LocalTime value = (LocalTime) tokens.get(1).value();
+          ctx.setExplicitTime(value);
+          return true;
+        },
+        KEYWORD,
+        TIME_KEYWORD);
+  }
+
+  private Pattern getTimeMeridiemPattern() {
+    return Pattern.of(
+        "TIME_MERIDIEM",
+        (tokens, ctx) -> {
+          LocalTime value = (LocalTime) tokens.get(0).value();
+          if (value.getHour() < 12 && tokens.get(1).value() == MeridiemKeyword.PM) {
+            value = value.plusHours(12);
+          }
+          ctx.setExplicitTime(value);
+          return true;
+        },
+        TIME,
+        MERIDIEM);
+  }
+
+  private Pattern getTimePattern() {
+    return Pattern.of(
+        "TIME",
+        (tokens, ctx) -> {
+          LocalTime value = (LocalTime) tokens.get(0).value();
+          ctx.setExplicitTime(value);
+          return true;
+        },
+        TIME);
+  }
+
+  private Pattern getTimeKeywordPattern() {
+    return Pattern.of(
+        "TIME",
+        (tokens, ctx) -> {
+          LocalTime value = (LocalTime) tokens.get(0).value();
+          ctx.setExplicitTime(value);
+          return true;
+        },
+        TIME_KEYWORD);
   }
 }

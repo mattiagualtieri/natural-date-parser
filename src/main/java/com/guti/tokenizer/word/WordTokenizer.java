@@ -15,9 +15,9 @@ public class WordTokenizer {
           new DateKeywordWord(),
           new TimeKeywordWord(),
           new UnitWord(),
+          new YearWord(),
           new NumberWord(),
           new TimeWord(),
-          new OrdinalWord(),
           new MeridiemWord());
 
   public Token tokenize(String word) {

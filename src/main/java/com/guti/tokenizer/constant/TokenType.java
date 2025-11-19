@@ -2,7 +2,6 @@ package com.guti.tokenizer.constant;
 
 public enum TokenType {
   NUMBER,
-  ORDINAL,
   MONTH,
   YEAR,
   WEEKDAY,

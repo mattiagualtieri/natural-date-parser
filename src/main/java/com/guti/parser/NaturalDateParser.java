@@ -1,7 +1,6 @@
 package com.guti.parser;
 
 import com.guti.parser.pipeline.ParsePipeline;
-import com.guti.parser.pipeline.rule.RuleBasedParsePipeline;
 import com.guti.tokenizer.Token;
 import com.guti.tokenizer.Tokenizer;
 
