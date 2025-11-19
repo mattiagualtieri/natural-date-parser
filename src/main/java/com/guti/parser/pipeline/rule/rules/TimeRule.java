@@ -23,6 +23,7 @@ public class TimeRule extends Rule {
           getAtNumberPattern(),
           getAtTimeKeywordPattern(),
           getTimeMeridiemPattern(),
+          getHourMinutePattern(),
           getTimePattern(),
           getTimeKeywordPattern());
 
@@ -202,6 +203,26 @@ public class TimeRule extends Rule {
         },
         TIME,
         MERIDIEM);
+  }
+
+  private Pattern getHourMinutePattern() {
+    return Pattern.of(
+        "HOUR_MINUTE",
+        (tokens, ctx) -> {
+          Integer hours = (Integer) tokens.get(0).value();
+          if (hours < 0 || hours > 24) {
+            return false;
+          }
+          Integer minutes = (Integer) tokens.get(1).value();
+          if (minutes < 0 || minutes > 59) {
+            return false;
+          }
+          LocalTime value = LocalTime.of(hours, minutes);
+          ctx.setExplicitTime(value);
+          return true;
+        },
+        NUMBER,
+        NUMBER);
   }
 
   private Pattern getTimePattern() {
