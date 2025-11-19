@@ -16,9 +16,9 @@ public class TimeRule extends Rule {
       List.of(
           getAtTimeMeridiemPattern(),
           getAtNumberMeridiemPattern(),
+          getHourMinuteMeridiemPattern(),
           getAtTimePattern(),
           getAtNumberPattern(),
-          getAtTimePattern(),
           getAtTimeKeywordPattern(),
           getTimeMeridiemPattern(),
           getTimePattern(),
@@ -64,6 +64,30 @@ public class TimeRule extends Rule {
           return true;
         },
         KEYWORD,
+        NUMBER,
+        MERIDIEM);
+  }
+
+  private Pattern getHourMinuteMeridiemPattern() {
+    return Pattern.of(
+        "HOUR_MINUTE_MERIDIEM",
+        (tokens, ctx) -> {
+          Integer hours = (Integer) tokens.get(0).value();
+          if (hours < 0 || hours > 24) {
+            return false;
+          }
+          Integer minutes = (Integer) tokens.get(1).value();
+          if (minutes < 0 || minutes > 59) {
+            return false;
+          }
+          if (hours < 12 && tokens.get(2).value() == MeridiemKeyword.PM) {
+            hours += 12;
+          }
+          LocalTime value = LocalTime.of(hours, minutes);
+          ctx.setExplicitTime(value);
+          return true;
+        },
+        NUMBER,
         NUMBER,
         MERIDIEM);
   }
