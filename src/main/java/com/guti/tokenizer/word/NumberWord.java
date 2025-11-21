@@ -12,7 +12,7 @@ public class NumberWord implements Word {
   private static final Pattern ORDINAL_REGEX = Pattern.compile("(\\d+)(st|nd|rd|th)");
 
   @Override
-  public boolean contains(String word) {
+  public boolean match(String word) {
     return NUMBER_REGEX.matcher(word).matches() || ORDINAL_REGEX.matcher(word).matches();
   }
 

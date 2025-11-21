@@ -19,13 +19,13 @@ public class KeywordWord implements Word {
           Map.entry("last", Keyword.LAST));
 
   @Override
-  public boolean contains(String word) {
+  public boolean match(String word) {
     return KEYWORDS.containsKey(word);
   }
 
   @Override
   public Token tokenize(String word) {
-    if (contains(word)) {
+    if (match(word)) {
       return new Token(TokenType.KEYWORD, word, Keyword.valueOf(word.toUpperCase()));
     }
     return new Token(TokenType.UNKNOWN, word, word);

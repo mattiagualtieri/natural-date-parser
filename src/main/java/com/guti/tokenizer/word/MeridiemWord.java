@@ -11,7 +11,7 @@ public class MeridiemWord implements Word {
   private static final Pattern MERIDIEM_REGEX = Pattern.compile("(a\\.?m?\\.?|p\\.?m?\\.?)?");
 
   @Override
-  public boolean contains(String word) {
+  public boolean match(String word) {
     return MERIDIEM_REGEX.matcher(word).matches();
   }
 

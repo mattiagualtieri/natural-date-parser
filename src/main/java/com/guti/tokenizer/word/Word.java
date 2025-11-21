@@ -4,7 +4,7 @@ import com.guti.tokenizer.Token;
 
 public interface Word {
 
-  boolean contains(String word);
+  boolean match(String word);
 
   Token tokenize(String word);
 }

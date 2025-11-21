@@ -15,13 +15,13 @@ public class DateKeywordWord implements Word {
           Map.entry("day_after_tomorrow", DateKeyword.DAY_AFTER_TOMORROW));
 
   @Override
-  public boolean contains(String word) {
+  public boolean match(String word) {
     return DATE_KEYWORDS.containsKey(word);
   }
 
   @Override
   public Token tokenize(String word) {
-    if (contains(word)) {
+    if (match(word)) {
       return new Token(TokenType.DATE_KEYWORD, word, DateKeyword.valueOf(word.toUpperCase()));
     }
     return new Token(TokenType.UNKNOWN, word, word);

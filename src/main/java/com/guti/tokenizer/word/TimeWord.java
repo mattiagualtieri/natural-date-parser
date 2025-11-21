@@ -13,7 +13,7 @@ public class TimeWord implements Word {
       Pattern.compile("(\\d{1,2})(?::(\\d{2}))?\\s*(a\\.?m?\\.?|p\\.?m?\\.?)?");
 
   @Override
-  public boolean contains(String word) {
+  public boolean match(String word) {
     return TIME_REGEX.matcher(word).matches();
   }
 

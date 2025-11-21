@@ -34,13 +34,13 @@ public class UnitWord implements Word {
           Map.entry("yrs", ChronoUnit.YEARS));
 
   @Override
-  public boolean contains(String word) {
+  public boolean match(String word) {
     return UNITS.containsKey(word);
   }
 
   @Override
   public Token tokenize(String word) {
-    if (contains(word)) {
+    if (match(word)) {
       return new Token(TokenType.UNIT, word, UNITS.get(word));
     }
     return new Token(TokenType.UNKNOWN, word, word);

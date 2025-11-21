@@ -12,13 +12,13 @@ public class TimeKeywordWord implements Word {
       Map.ofEntries(Map.entry("noon", LocalTime.NOON), Map.entry("midnight", LocalTime.MIDNIGHT));
 
   @Override
-  public boolean contains(String word) {
+  public boolean match(String word) {
     return TIME_KEYWORDS.containsKey(word);
   }
 
   @Override
   public Token tokenize(String word) {
-    if (contains(word)) {
+    if (match(word)) {
       return new Token(TokenType.TIME_KEYWORD, word, TIME_KEYWORDS.get(word));
     }
     return new Token(TokenType.UNKNOWN, word, word);

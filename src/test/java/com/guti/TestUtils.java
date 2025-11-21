@@ -26,7 +26,7 @@ public class TestUtils {
   public static Token tokenOf(String word) {
     String normalized = normalizer.normalize(word);
     for (Word strategy : strategies) {
-      if (strategy.contains(normalized)) {
+      if (strategy.match(normalized)) {
         return strategy.tokenize(normalized);
       }
     }

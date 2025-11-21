@@ -36,13 +36,13 @@ public class MonthWord implements Word {
           Map.entry("dec", Month.DECEMBER));
 
   @Override
-  public boolean contains(String word) {
+  public boolean match(String word) {
     return MONTHS.containsKey(word);
   }
 
   @Override
   public Token tokenize(String word) {
-    if (contains(word)) {
+    if (match(word)) {
       return new Token(TokenType.MONTH, word, MONTHS.get(word));
     }
     return new Token(TokenType.UNKNOWN, word, word);

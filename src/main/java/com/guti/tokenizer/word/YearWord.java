@@ -10,7 +10,7 @@ public class YearWord implements Word {
   private static final Pattern YEAR_REGEX = Pattern.compile("\\b[12]\\d{3}\\b");
 
   @Override
-  public boolean contains(String word) {
+  public boolean match(String word) {
     return YEAR_REGEX.matcher(word).matches();
   }
 

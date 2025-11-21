@@ -29,13 +29,13 @@ public class WeekdayWord implements Word {
           Map.entry("sun", DayOfWeek.SUNDAY));
 
   @Override
-  public boolean contains(String word) {
+  public boolean match(String word) {
     return WEEKDAYS.containsKey(word);
   }
 
   @Override
   public Token tokenize(String word) {
-    if (contains(word)) {
+    if (match(word)) {
       return new Token(TokenType.WEEKDAY, word, WEEKDAYS.get(word));
     }
     return new Token(TokenType.UNKNOWN, word, word);

@@ -22,7 +22,7 @@ public class WordTokenizer {
 
   public Token tokenize(String word) {
     for (Word strategy : strategies) {
-      if (strategy.contains(word)) {
+      if (strategy.match(word)) {
         return strategy.tokenize(word);
       }
     }
