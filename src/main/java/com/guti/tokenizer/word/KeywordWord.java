@@ -1,25 +1,22 @@
 package com.guti.tokenizer.word;
 
 import com.guti.tokenizer.Token;
-import com.guti.tokenizer.constant.Keyword;
-import com.guti.tokenizer.constant.TokenType;
+import com.guti.tokenizer.TokenType;
 
 import java.util.Map;
-
-import static com.guti.tokenizer.constant.Keyword.*;
 
 public class KeywordWord implements Word {
 
   public static final Map<String, Keyword> KEYWORDS =
       Map.ofEntries(
-          Map.entry("at", AT),
-          Map.entry("of", OF),
-          Map.entry("in", IN),
-          Map.entry("ago", AGO),
-          Map.entry("from", FROM),
-          Map.entry("next", NEXT),
-          Map.entry("this", THIS),
-          Map.entry("last", LAST));
+          Map.entry("at", Keyword.AT),
+          Map.entry("of", Keyword.OF),
+          Map.entry("in", Keyword.IN),
+          Map.entry("ago", Keyword.AGO),
+          Map.entry("from", Keyword.FROM),
+          Map.entry("next", Keyword.NEXT),
+          Map.entry("this", Keyword.THIS),
+          Map.entry("last", Keyword.LAST));
 
   @Override
   public boolean contains(String word) {
@@ -32,5 +29,16 @@ public class KeywordWord implements Word {
       return new Token(TokenType.KEYWORD, word, Keyword.valueOf(word.toUpperCase()));
     }
     return new Token(TokenType.UNKNOWN, word, word);
+  }
+
+  public enum Keyword {
+    AT,
+    OF,
+    IN,
+    AGO,
+    FROM,
+    NEXT,
+    THIS,
+    LAST
   }
 }

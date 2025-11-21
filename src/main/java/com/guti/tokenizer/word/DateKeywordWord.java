@@ -1,21 +1,18 @@
 package com.guti.tokenizer.word;
 
 import com.guti.tokenizer.Token;
-import com.guti.tokenizer.constant.DateKeyword;
-import com.guti.tokenizer.constant.TokenType;
+import com.guti.tokenizer.TokenType;
 import java.util.Map;
-
-import static com.guti.tokenizer.constant.DateKeyword.*;
 
 public class DateKeywordWord implements Word {
 
   public static final Map<String, DateKeyword> DATE_KEYWORDS =
       Map.ofEntries(
-          Map.entry("today", TODAY),
-          Map.entry("tomorrow", TOMORROW),
-          Map.entry("yesterday", YESTERDAY),
-          Map.entry("day_before_yesterday", DAY_BEFORE_YESTERDAY),
-          Map.entry("day_after_tomorrow", DAY_AFTER_TOMORROW));
+          Map.entry("today", DateKeyword.TODAY),
+          Map.entry("tomorrow", DateKeyword.TOMORROW),
+          Map.entry("yesterday", DateKeyword.YESTERDAY),
+          Map.entry("day_before_yesterday", DateKeyword.DAY_BEFORE_YESTERDAY),
+          Map.entry("day_after_tomorrow", DateKeyword.DAY_AFTER_TOMORROW));
 
   @Override
   public boolean contains(String word) {
@@ -28,5 +25,13 @@ public class DateKeywordWord implements Word {
       return new Token(TokenType.DATE_KEYWORD, word, DateKeyword.valueOf(word.toUpperCase()));
     }
     return new Token(TokenType.UNKNOWN, word, word);
+  }
+
+  public enum DateKeyword {
+    TODAY,
+    TOMORROW,
+    YESTERDAY,
+    DAY_AFTER_TOMORROW,
+    DAY_BEFORE_YESTERDAY,
   }
 }

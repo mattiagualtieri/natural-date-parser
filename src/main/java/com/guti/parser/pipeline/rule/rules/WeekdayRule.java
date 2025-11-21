@@ -2,14 +2,15 @@ package com.guti.parser.pipeline.rule.rules;
 
 import com.guti.parser.pipeline.rule.Rule;
 import com.guti.parser.pipeline.rule.pattern.Pattern;
-import com.guti.tokenizer.constant.Keyword;
+import com.guti.tokenizer.word.KeywordWord;
+import com.guti.tokenizer.word.KeywordWord.Keyword.*;
 
 import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Set;
 
-import static com.guti.tokenizer.constant.Keyword.*;
-import static com.guti.tokenizer.constant.TokenType.*;
+import static com.guti.tokenizer.TokenType.*;
+import static com.guti.tokenizer.word.KeywordWord.Keyword.*;
 
 public class WeekdayRule extends Rule {
 
@@ -24,7 +25,7 @@ public class WeekdayRule extends Rule {
     return Pattern.of(
         "MODIFIER_WEEKDAY",
         (tokens, ctx) -> {
-          Keyword modifier = (Keyword) tokens.get(0).value();
+          KeywordWord.Keyword modifier = (KeywordWord.Keyword) tokens.get(0).value();
           if (Set.of(THIS, NEXT, LAST).contains(modifier)) {
             ctx.setWeekdayModifier(modifier);
             DayOfWeek value = (DayOfWeek) tokens.get(1).value();

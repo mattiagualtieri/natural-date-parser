@@ -1,7 +1,5 @@
 package com.guti.tokenizer;
 
-import com.guti.tokenizer.constant.TokenType;
-
 import java.util.Objects;
 
 public record Token(TokenType type, String text, Object value) {

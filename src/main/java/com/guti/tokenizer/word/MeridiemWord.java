@@ -1,9 +1,8 @@
 package com.guti.tokenizer.word;
 
 import com.guti.tokenizer.Token;
-import com.guti.tokenizer.constant.MeridiemKeyword;
-import com.guti.tokenizer.constant.TokenType;
-import java.time.LocalTime;
+import com.guti.tokenizer.TokenType;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,11 +22,16 @@ public class MeridiemWord implements Word {
       String meridiem = matcher.group(1);
 
       if (meridiem.contains("a")) {
-        return new Token(TokenType.MERIDIEM, word, MeridiemKeyword.AM);
+        return new Token(TokenType.MERIDIEM, word, Meridiem.AM);
       } else {
-        return new Token(TokenType.MERIDIEM, word, MeridiemKeyword.PM);
+        return new Token(TokenType.MERIDIEM, word, Meridiem.PM);
       }
     }
     return new Token(TokenType.UNKNOWN, word, word);
+  }
+
+  public enum Meridiem {
+    AM,
+    PM
   }
 }

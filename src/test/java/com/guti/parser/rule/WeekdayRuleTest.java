@@ -1,7 +1,7 @@
 package com.guti.parser.rule;
 
 import static com.guti.TestUtils.tokenOf;
-import static com.guti.tokenizer.constant.Keyword.*;
+import static com.guti.tokenizer.word.KeywordWord.Keyword.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.guti.tokenizer.constant.Keyword;
+import com.guti.tokenizer.word.KeywordWord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -53,7 +53,7 @@ public class WeekdayRuleTest {
   @ParameterizedTest
   @MethodSource("provideInputsForShouldApplyCorrectly")
   void shouldApplyCorrectly(
-      List<Token> inputTokens, DayOfWeek expectedWeekday, Keyword expectedModifier) {
+      List<Token> inputTokens, DayOfWeek expectedWeekday, KeywordWord.Keyword expectedModifier) {
     LocalDateTime reference = LocalDateTime.of(2026, 6, 15, 12, 0);
     ParseContext ctx = new ParseContext(reference);
     rule.matches(inputTokens, 0);

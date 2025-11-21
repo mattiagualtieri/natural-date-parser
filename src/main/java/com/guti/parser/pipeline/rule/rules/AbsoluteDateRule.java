@@ -2,14 +2,14 @@ package com.guti.parser.pipeline.rule.rules;
 
 import com.guti.parser.pipeline.rule.Rule;
 import com.guti.parser.pipeline.rule.pattern.Pattern;
-import com.guti.tokenizer.constant.Keyword;
+import com.guti.tokenizer.word.KeywordWord.*;
 
 import java.time.Month;
 import java.time.MonthDay;
 import java.time.Year;
 import java.util.List;
 
-import static com.guti.tokenizer.constant.TokenType.*;
+import static com.guti.tokenizer.TokenType.*;
 
 public class AbsoluteDateRule extends Rule {
 

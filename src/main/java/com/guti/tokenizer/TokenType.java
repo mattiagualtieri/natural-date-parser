@@ -1,4 +1,4 @@
-package com.guti.tokenizer.constant;
+package com.guti.tokenizer;
 
 public enum TokenType {
   NUMBER,

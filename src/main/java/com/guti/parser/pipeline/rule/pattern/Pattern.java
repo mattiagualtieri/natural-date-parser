@@ -2,7 +2,7 @@ package com.guti.parser.pipeline.rule.pattern;
 
 import com.guti.parser.pipeline.ParseContext;
 import com.guti.tokenizer.Token;
-import com.guti.tokenizer.constant.TokenType;
+import com.guti.tokenizer.TokenType;
 
 import java.util.Arrays;
 import java.util.List;

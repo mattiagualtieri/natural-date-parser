@@ -1,11 +1,11 @@
 package com.guti.parser.pipeline.rule.rules;
 
-import static com.guti.tokenizer.constant.Keyword.*;
-import static com.guti.tokenizer.constant.TokenType.*;
+import static com.guti.tokenizer.TokenType.*;
+import static com.guti.tokenizer.word.KeywordWord.Keyword.*;
 
 import com.guti.parser.pipeline.rule.Rule;
 import com.guti.parser.pipeline.rule.pattern.Pattern;
-import com.guti.tokenizer.constant.MeridiemKeyword;
+import com.guti.tokenizer.word.MeridiemWord.*;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -47,7 +47,7 @@ public class TimeRule extends Rule {
           if (minutes < 0 || minutes > 59) {
             return false;
           }
-          if (hours < 12 && tokens.get(3).value() == MeridiemKeyword.PM) {
+          if (hours < 12 && tokens.get(3).value() == Meridiem.PM) {
             hours += 12;
           }
           LocalTime value = LocalTime.of(hours, minutes);
@@ -92,7 +92,7 @@ public class TimeRule extends Rule {
             return false;
           }
           LocalTime value = (LocalTime) tokens.get(1).value();
-          if (value.getHour() < 12 && tokens.get(2).value() == MeridiemKeyword.PM) {
+          if (value.getHour() < 12 && tokens.get(2).value() == Meridiem.PM) {
             value = value.plusHours(12);
           }
           ctx.setExplicitTime(value);
@@ -111,7 +111,7 @@ public class TimeRule extends Rule {
             return false;
           }
           Integer number = (Integer) tokens.get(1).value();
-          if (number < 12 && tokens.get(2).value() == MeridiemKeyword.PM) {
+          if (number < 12 && tokens.get(2).value() == Meridiem.PM) {
             number += 12;
           }
           LocalTime value = LocalTime.of(number, 0);
@@ -135,7 +135,7 @@ public class TimeRule extends Rule {
           if (minutes < 0 || minutes > 59) {
             return false;
           }
-          if (hours < 12 && tokens.get(2).value() == MeridiemKeyword.PM) {
+          if (hours < 12 && tokens.get(2).value() == Meridiem.PM) {
             hours += 12;
           }
           LocalTime value = LocalTime.of(hours, minutes);
@@ -195,7 +195,7 @@ public class TimeRule extends Rule {
         "TIME_MERIDIEM",
         (tokens, ctx) -> {
           LocalTime value = (LocalTime) tokens.get(0).value();
-          if (value.getHour() < 12 && tokens.get(1).value() == MeridiemKeyword.PM) {
+          if (value.getHour() < 12 && tokens.get(1).value() == Meridiem.PM) {
             value = value.plusHours(12);
           }
           ctx.setExplicitTime(value);

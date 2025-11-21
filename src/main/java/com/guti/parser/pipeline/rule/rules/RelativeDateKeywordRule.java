@@ -2,12 +2,12 @@ package com.guti.parser.pipeline.rule.rules;
 
 import com.guti.parser.pipeline.rule.Rule;
 import com.guti.parser.pipeline.rule.pattern.Pattern;
-import com.guti.tokenizer.constant.DateKeyword;
+import com.guti.tokenizer.word.DateKeywordWord.*;
 
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import static com.guti.tokenizer.constant.TokenType.*;
+import static com.guti.tokenizer.TokenType.*;
 
 public class RelativeDateKeywordRule extends Rule {
 

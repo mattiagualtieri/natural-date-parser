@@ -1,7 +1,7 @@
 package com.guti.tokenizer.word;
 
 import com.guti.tokenizer.Token;
-import com.guti.tokenizer.constant.TokenType;
+import com.guti.tokenizer.TokenType;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.guti.parser.pipeline;
 
-import com.guti.tokenizer.constant.Keyword;
+import com.guti.tokenizer.word.KeywordWord.Keyword;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
