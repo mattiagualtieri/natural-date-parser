@@ -9,11 +9,45 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.time.LocalTime;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class TimeWordTest {
 
   TimeWord word = new TimeWord();
+
+  @ParameterizedTest
+  @MethodSource("provideInputsForShouldMatch")
+  void shouldMatch(String inputWord) {
+    assertTrue(word.match(inputWord));
+  }
+
+  private static Stream<Arguments> provideInputsForShouldMatch() {
+    return Stream.of(
+        Arguments.of("17"),
+        Arguments.of("17:00"),
+        Arguments.of("17:30"),
+        Arguments.of("5:30 am"),
+        Arguments.of("5:30 pm"),
+        Arguments.of("5:30am"),
+        Arguments.of("5:30pm"));
+  }
+
+  @ParameterizedTest
+  @MethodSource("provideInputsForShouldNotMatch")
+  void shouldNotMatch(String inputWord) {
+    assertFalse(word.match(inputWord));
+  }
+
+  private static Stream<Arguments> provideInputsForShouldNotMatch() {
+    return Stream.of(
+        Arguments.of("~17"),
+        Arguments.of("17."),
+        Arguments.of("17.30"),
+        Arguments.of("5 ammm"),
+        Arguments.of("five thirty"),
+        Arguments.of("5,30 am"),
+        Arguments.of("5,30 pm"));
+  }
 
   @ParameterizedTest
   @MethodSource("provideInputsForShouldTokenize")
@@ -26,6 +60,7 @@ class TimeWordTest {
 
   private static Stream<Arguments> provideInputsForShouldTokenize() {
     return Stream.of(
+        Arguments.of("17", new Token(TokenType.TIME, "17", LocalTime.of(17, 0))),
         Arguments.of("17:00", new Token(TokenType.TIME, "17:00", LocalTime.of(17, 0))),
         Arguments.of("17:30", new Token(TokenType.TIME, "17:30", LocalTime.of(17, 30))),
         Arguments.of("5:30 am", new Token(TokenType.TIME, "5:30 am", LocalTime.of(5, 30))),

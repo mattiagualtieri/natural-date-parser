@@ -41,7 +41,12 @@ class UnitWordTest {
   }
 
   private static Stream<Arguments> provideInputsForShouldNotMatch() {
-    return Stream.of(Arguments.of("secss"), Arguments.of("mnts"), Arguments.of("hs"));
+    return Stream.of(
+        Arguments.of("secss"),
+        Arguments.of("mnts"),
+        Arguments.of("hs"),
+        Arguments.of("asdfg"),
+        Arguments.of("just"));
   }
 
   @ParameterizedTest
