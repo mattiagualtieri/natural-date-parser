@@ -172,7 +172,7 @@ public class TimeRule extends Rule {
           return true;
         },
         KEYWORD,
-        TIME);
+        NUMBER);
   }
 
   private Pattern getAtTimeKeywordPattern() {

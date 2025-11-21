@@ -44,4 +44,9 @@ public class Pattern {
   public boolean resolve(List<Token> tokens, ParseContext ctx) {
     return resolver.resolve(tokens, ctx);
   }
+
+  @Override
+  public String toString() {
+    return name;
+  }
 }

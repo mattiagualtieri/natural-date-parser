@@ -16,8 +16,10 @@ public class TestUtils {
           new DateKeywordWord(),
           new TimeKeywordWord(),
           new UnitWord(),
+          new YearWord(),
           new NumberWord(),
-          new TimeWord());
+          new TimeWord(),
+          new MeridiemWord());
 
   private static final DefaultNormalizationPipeline normalizer = new DefaultNormalizationPipeline();
 
