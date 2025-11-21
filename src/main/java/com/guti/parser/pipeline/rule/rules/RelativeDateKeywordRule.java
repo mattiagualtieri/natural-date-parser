@@ -1,9 +1,7 @@
 package com.guti.parser.pipeline.rule.rules;
 
-import com.guti.parser.pipeline.ParseContext;
 import com.guti.parser.pipeline.rule.Rule;
 import com.guti.parser.pipeline.rule.pattern.Pattern;
-import com.guti.tokenizer.Token;
 import com.guti.tokenizer.constant.DateKeyword;
 
 import java.time.temporal.ChronoUnit;
@@ -18,22 +16,6 @@ public class RelativeDateKeywordRule extends Rule {
   @Override
   public List<Pattern> getPatterns() {
     return patterns;
-  }
-
-  @Override
-  public boolean apply(ParseContext ctx, List<Token> tokens, int pos) {
-    List<Token> slice = tokens.subList(pos, pos + this.length());
-
-    DateKeyword value = (DateKeyword) slice.get(0).value();
-    switch (value) {
-      case YESTERDAY -> ctx.setRelative(-1, ChronoUnit.DAYS);
-      case TOMORROW -> ctx.setRelative(1, ChronoUnit.DAYS);
-      case DAY_BEFORE_YESTERDAY -> ctx.setRelative(-2, ChronoUnit.DAYS);
-      case DAY_AFTER_TOMORROW -> ctx.setRelative(2, ChronoUnit.DAYS);
-      default -> ctx.setRelative(0, ChronoUnit.DAYS);
-    }
-
-    return true;
   }
 
   private Pattern getDateKeywordPattern() {
