@@ -1,22 +1,47 @@
 package com.guti.tokenizer.word;
 
+import static com.guti.tokenizer.word.DateKeywordWord.DateKeyword.TOMORROW;
+import static com.guti.tokenizer.word.KeywordWord.Keyword.AGO;
+import static com.guti.tokenizer.word.MeridiemWord.Meridiem.AM;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.guti.tokenizer.Token;
 import com.guti.tokenizer.TokenType;
-import org.junit.jupiter.api.Test;
 
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.time.Month;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.time.temporal.ChronoUnit;
+import java.util.stream.Stream;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class WordTokenizerTest {
 
   private final WordTokenizer wordTokenizer = new WordTokenizer();
 
-  @Test
-  void tokenizeMonth() {
-    Token token = wordTokenizer.tokenize("february");
-    assertEquals(TokenType.MONTH, token.type());
-    assertEquals("february", token.text());
-    assertEquals(Month.FEBRUARY, token.value());
+  @ParameterizedTest
+  @MethodSource("provideInputsForShouldTokenize")
+  void shouldTokenize(String inputWord, Token expectedToken) {
+    Token token = wordTokenizer.tokenize(inputWord);
+    assertEquals(expectedToken.type(), token.type());
+    assertEquals(expectedToken.text(), token.text());
+    assertEquals(expectedToken.value(), token.value());
+  }
+
+  private static Stream<Arguments> provideInputsForShouldTokenize() {
+    return Stream.of(
+        Arguments.of("february", new Token(TokenType.MONTH, "february", Month.FEBRUARY)),
+        Arguments.of("mon", new Token(TokenType.WEEKDAY, "mon", DayOfWeek.MONDAY)),
+        Arguments.of("ago", new Token(TokenType.KEYWORD, "ago", AGO)),
+        Arguments.of("tomorrow", new Token(TokenType.DATE_KEYWORD, "tomorrow", TOMORROW)),
+        Arguments.of("midnight", new Token(TokenType.TIME_KEYWORD, "midnight", LocalTime.MIDNIGHT)),
+        Arguments.of("hrs", new Token(TokenType.UNIT, "hrs", ChronoUnit.HOURS)),
+        Arguments.of("2025", new Token(TokenType.YEAR, "2025", 2025)),
+        Arguments.of("30th", new Token(TokenType.NUMBER, "30th", 30)),
+        Arguments.of("7pm", new Token(TokenType.TIME, "7pm", LocalTime.of(19, 0))),
+        Arguments.of("am", new Token(TokenType.MERIDIEM, "am", AM)),
+        Arguments.of("random", new Token(TokenType.UNKNOWN, "random", "random")));
   }
 }
