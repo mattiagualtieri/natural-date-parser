@@ -40,9 +40,15 @@ public class RelativeQuantityRuleTest {
         Arguments.of(List.of(tokenOf("In"), tokenOf("3"), tokenOf("days")), 3),
         Arguments.of(List.of(tokenOf("In"), tokenOf("2"), tokenOf("hours")), 3),
         Arguments.of(List.of(tokenOf("In"), tokenOf("4"), tokenOf("weeks")), 3),
+        Arguments.of(List.of(tokenOf("In"), tokenOf("10"), tokenOf("minutes")), 3),
+        Arguments.of(List.of(tokenOf("In"), tokenOf("6"), tokenOf("months")), 3),
+        Arguments.of(List.of(tokenOf("In"), tokenOf("5"), tokenOf("years")), 3),
         Arguments.of(List.of(tokenOf("3"), tokenOf("days"), tokenOf("ago")), 3),
         Arguments.of(List.of(tokenOf("2"), tokenOf("hours"), tokenOf("ago")), 3),
-        Arguments.of(List.of(tokenOf("4"), tokenOf("weeks"), tokenOf("ago")), 3));
+        Arguments.of(List.of(tokenOf("4"), tokenOf("weeks"), tokenOf("ago")), 3),
+        Arguments.of(List.of(tokenOf("15"), tokenOf("minutes"), tokenOf("ago")), 3),
+        Arguments.of(List.of(tokenOf("8"), tokenOf("months"), tokenOf("ago")), 3),
+        Arguments.of(List.of(tokenOf("1"), tokenOf("years"), tokenOf("ago")), 3));
   }
 
   @ParameterizedTest
@@ -61,9 +67,20 @@ public class RelativeQuantityRuleTest {
         Arguments.of(List.of(tokenOf("In"), tokenOf("3"), tokenOf("days")), ChronoUnit.DAYS, 3),
         Arguments.of(List.of(tokenOf("In"), tokenOf("2"), tokenOf("hours")), ChronoUnit.HOURS, 2),
         Arguments.of(List.of(tokenOf("In"), tokenOf("4"), tokenOf("weeks")), ChronoUnit.WEEKS, 4),
+        Arguments.of(
+            List.of(tokenOf("In"), tokenOf("10"), tokenOf("minutes")), ChronoUnit.MINUTES, 10),
+        Arguments.of(
+            List.of(tokenOf("In"), tokenOf("6"), tokenOf("months")), ChronoUnit.MONTHS, 6),
+        Arguments.of(List.of(tokenOf("In"), tokenOf("5"), tokenOf("years")), ChronoUnit.YEARS, 5),
         Arguments.of(List.of(tokenOf("3"), tokenOf("days"), tokenOf("ago")), ChronoUnit.DAYS, -3),
         Arguments.of(List.of(tokenOf("2"), tokenOf("hours"), tokenOf("ago")), ChronoUnit.HOURS, -2),
         Arguments.of(
-            List.of(tokenOf("4"), tokenOf("weeks"), tokenOf("ago")), ChronoUnit.WEEKS, -4));
+            List.of(tokenOf("4"), tokenOf("weeks"), tokenOf("ago")), ChronoUnit.WEEKS, -4),
+        Arguments.of(
+            List.of(tokenOf("15"), tokenOf("minutes"), tokenOf("ago")), ChronoUnit.MINUTES, -15),
+        Arguments.of(
+            List.of(tokenOf("8"), tokenOf("months"), tokenOf("ago")), ChronoUnit.MONTHS, -8),
+        Arguments.of(
+            List.of(tokenOf("1"), tokenOf("years"), tokenOf("ago")), ChronoUnit.YEARS, -1));
   }
 }

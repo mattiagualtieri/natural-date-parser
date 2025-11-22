@@ -37,15 +37,17 @@ public class TimeRuleTest {
 
   private static Stream<Arguments> provideInputsForShouldMatchCorrectPatterns() {
     return Stream.of(
-        Arguments.of(List.of(tokenOf("At"), tokenOf("5:00")), 2),
-        Arguments.of(List.of(tokenOf("At"), tokenOf("17:00")), 2),
-        Arguments.of(List.of(tokenOf("At"), tokenOf("5")), 2),
-        Arguments.of(List.of(tokenOf("At"), tokenOf("17")), 2),
+        Arguments.of(List.of(tokenOf("At"), tokenOf("5"), tokenOf("30"), tokenOf("pm")), 4),
+        Arguments.of(List.of(tokenOf("At"), tokenOf("7"), tokenOf("15")), 3),
+        Arguments.of(List.of(tokenOf("At"), tokenOf("5:15"), tokenOf("pm")), 3),
+        Arguments.of(List.of(tokenOf("At"), tokenOf("9"), tokenOf("pm")), 3),
+        Arguments.of(List.of(tokenOf("10"), tokenOf("45"), tokenOf("am")), 3),
+        Arguments.of(List.of(tokenOf("At"), tokenOf("07:10")), 2),
+        Arguments.of(List.of(tokenOf("At"), tokenOf("6")), 2),
         Arguments.of(List.of(tokenOf("At"), tokenOf("noon")), 2),
-        Arguments.of(List.of(tokenOf("At"), tokenOf("midnight")), 2),
-        Arguments.of(List.of(tokenOf("5:00")), 1),
-        Arguments.of(List.of(tokenOf("17:00")), 1),
-        Arguments.of(List.of(tokenOf("noon")), 1),
+        Arguments.of(List.of(tokenOf("5:30"), tokenOf("pm")), 2),
+        Arguments.of(List.of(tokenOf("14"), tokenOf("5")), 2),
+        Arguments.of(List.of(tokenOf("06:00")), 1),
         Arguments.of(List.of(tokenOf("midnight")), 1));
   }
 
@@ -62,15 +64,20 @@ public class TimeRuleTest {
 
   private static Stream<Arguments> provideInputsForShouldApplyCorrectly() {
     return Stream.of(
-        Arguments.of(List.of(tokenOf("At"), tokenOf("5:00")), LocalTime.of(5, 0)),
-        Arguments.of(List.of(tokenOf("At"), tokenOf("17:00")), LocalTime.of(17, 0)),
-        Arguments.of(List.of(tokenOf("At"), tokenOf("5")), LocalTime.of(5, 0)),
-        Arguments.of(List.of(tokenOf("At"), tokenOf("17")), LocalTime.of(17, 0)),
+        Arguments.of(
+            List.of(tokenOf("At"), tokenOf("5"), tokenOf("30"), tokenOf("pm")),
+            LocalTime.of(17, 30)),
+        Arguments.of(List.of(tokenOf("At"), tokenOf("7"), tokenOf("15")), LocalTime.of(7, 15)),
+        Arguments.of(
+            List.of(tokenOf("At"), tokenOf("5:15"), tokenOf("pm")), LocalTime.of(17, 15)),
+        Arguments.of(List.of(tokenOf("At"), tokenOf("9"), tokenOf("pm")), LocalTime.of(21, 0)),
+        Arguments.of(List.of(tokenOf("10"), tokenOf("45"), tokenOf("am")), LocalTime.of(10, 45)),
+        Arguments.of(List.of(tokenOf("At"), tokenOf("07:10")), LocalTime.of(7, 10)),
+        Arguments.of(List.of(tokenOf("At"), tokenOf("6")), LocalTime.of(6, 0)),
         Arguments.of(List.of(tokenOf("At"), tokenOf("noon")), LocalTime.NOON),
-        Arguments.of(List.of(tokenOf("At"), tokenOf("midnight")), LocalTime.MIDNIGHT),
-        Arguments.of(List.of(tokenOf("5:00")), LocalTime.of(5, 0)),
-        Arguments.of(List.of(tokenOf("17:00")), LocalTime.of(17, 0)),
-        Arguments.of(List.of(tokenOf("noon")), LocalTime.NOON),
+        Arguments.of(List.of(tokenOf("5:30"), tokenOf("pm")), LocalTime.of(17, 30)),
+        Arguments.of(List.of(tokenOf("14"), tokenOf("5")), LocalTime.of(14, 5)),
+        Arguments.of(List.of(tokenOf("06:00")), LocalTime.of(6, 0)),
         Arguments.of(List.of(tokenOf("midnight")), LocalTime.MIDNIGHT));
   }
 }
