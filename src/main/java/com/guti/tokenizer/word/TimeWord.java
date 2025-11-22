@@ -25,9 +25,16 @@ public class TimeWord implements Word {
       int minute = timeMatch.group(2) != null ? Integer.parseInt(timeMatch.group(2)) : 0;
       String meridiem = timeMatch.group(3);
 
+      if (minute < 0 || minute > 59) return new Token(TokenType.UNKNOWN, word, word);
+
       if (meridiem != null) {
+        if (hour < 1 || hour > 12) {
+          return new Token(TokenType.UNKNOWN, word, word);
+        }
         if (meridiem.equals("pm") && hour < 12) hour += 12;
         if (meridiem.equals("am") && hour == 12) hour = 0;
+      } else {
+        if (hour < 0 || hour > 23) return new Token(TokenType.UNKNOWN, word, word);
       }
 
       return new Token(TokenType.TIME, word, LocalTime.of(hour, minute));

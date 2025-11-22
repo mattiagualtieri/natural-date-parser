@@ -40,15 +40,18 @@ public class TimeRule extends Rule {
             return false;
           }
           Integer hours = (Integer) tokens.get(1).value();
-          if (hours < 0 || hours > 24) {
+          if (hours < 1 || hours > 12) {
             return false;
           }
           Integer minutes = (Integer) tokens.get(2).value();
           if (minutes < 0 || minutes > 59) {
             return false;
           }
-          if (hours < 12 && tokens.get(3).value() == Meridiem.PM) {
+          if (tokens.get(3).value() == Meridiem.PM && hours < 12) {
             hours += 12;
+          }
+          if (tokens.get(3).value() == Meridiem.AM && hours == 12) {
+            hours = 0;
           }
           LocalTime value = LocalTime.of(hours, minutes);
           ctx.setExplicitTime(value);
@@ -68,7 +71,7 @@ public class TimeRule extends Rule {
             return false;
           }
           Integer hours = (Integer) tokens.get(1).value();
-          if (hours < 0 || hours > 24) {
+          if (hours < 0 || hours > 23) {
             return false;
           }
           Integer minutes = (Integer) tokens.get(2).value();
@@ -92,9 +95,10 @@ public class TimeRule extends Rule {
             return false;
           }
           LocalTime value = (LocalTime) tokens.get(1).value();
-          if (value.getHour() < 12 && tokens.get(2).value() == Meridiem.PM) {
-            value = value.plusHours(12);
-          }
+          int hours = value.getHour();
+          if (hours > 12) return false;
+          if (hours < 12 && tokens.get(2).value() == Meridiem.PM) value = value.plusHours(12);
+          if (hours == 12 && tokens.get(2).value() == Meridiem.AM) value = value.minusHours(12);
           ctx.setExplicitTime(value);
           return true;
         },
@@ -111,9 +115,9 @@ public class TimeRule extends Rule {
             return false;
           }
           Integer number = (Integer) tokens.get(1).value();
-          if (number < 12 && tokens.get(2).value() == Meridiem.PM) {
-            number += 12;
-          }
+          if (number < 1 || number > 12) return false;
+          if (tokens.get(2).value() == Meridiem.PM && number < 12) number += 12;
+          if (tokens.get(2).value() == Meridiem.AM && number == 12) number = 0;
           LocalTime value = LocalTime.of(number, 0);
           ctx.setExplicitTime(value);
           return true;
@@ -128,15 +132,18 @@ public class TimeRule extends Rule {
         "HOUR_MINUTE_MERIDIEM",
         (tokens, ctx) -> {
           Integer hours = (Integer) tokens.get(0).value();
-          if (hours < 0 || hours > 24) {
+          if (hours < 1 || hours > 12) {
             return false;
           }
           Integer minutes = (Integer) tokens.get(1).value();
           if (minutes < 0 || minutes > 59) {
             return false;
           }
-          if (hours < 12 && tokens.get(2).value() == Meridiem.PM) {
+          if (tokens.get(2).value() == Meridiem.PM && hours < 12) {
             hours += 12;
+          }
+          if (tokens.get(2).value() == Meridiem.AM && hours == 12) {
+            hours = 0;
           }
           LocalTime value = LocalTime.of(hours, minutes);
           ctx.setExplicitTime(value);
@@ -167,6 +174,7 @@ public class TimeRule extends Rule {
         "AT_NUMBER",
         (tokens, ctx) -> {
           Integer number = (Integer) tokens.get(1).value();
+          if (number < 0 || number > 23) return false;
           LocalTime value = LocalTime.of(number, 0);
           ctx.setExplicitTime(value);
           return true;
@@ -195,9 +203,10 @@ public class TimeRule extends Rule {
         "TIME_MERIDIEM",
         (tokens, ctx) -> {
           LocalTime value = (LocalTime) tokens.get(0).value();
-          if (value.getHour() < 12 && tokens.get(1).value() == Meridiem.PM) {
-            value = value.plusHours(12);
-          }
+          int hours = value.getHour();
+          if (hours > 12) return false;
+          if (hours < 12 && tokens.get(1).value() == Meridiem.PM) value = value.plusHours(12);
+          if (hours == 12 && tokens.get(1).value() == Meridiem.AM) value = value.minusHours(12);
           ctx.setExplicitTime(value);
           return true;
         },
@@ -210,7 +219,7 @@ public class TimeRule extends Rule {
         "HOUR_MINUTE",
         (tokens, ctx) -> {
           Integer hours = (Integer) tokens.get(0).value();
-          if (hours < 0 || hours > 24) {
+          if (hours < 0 || hours > 23) {
             return false;
           }
           Integer minutes = (Integer) tokens.get(1).value();

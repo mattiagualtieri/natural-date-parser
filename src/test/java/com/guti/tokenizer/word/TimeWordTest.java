@@ -68,4 +68,22 @@ class TimeWordTest {
         Arguments.of("5:30am", new Token(TokenType.TIME, "5:30am", LocalTime.of(5, 30))),
         Arguments.of("5:30pm", new Token(TokenType.TIME, "5:30pm", LocalTime.of(17, 30))));
   }
+
+  @ParameterizedTest
+  @MethodSource("provideInputsForShouldTokenizeAsUnknown")
+  void shouldTokenizeAsUnknown(String inputWord) {
+    Token token = word.tokenize(inputWord);
+    assertEquals(TokenType.UNKNOWN, token.type());
+  }
+
+  private static Stream<Arguments> provideInputsForShouldTokenizeAsUnknown() {
+    return Stream.of(
+        Arguments.of("25:00"),
+        Arguments.of("24:59"),
+        Arguments.of("13am"),
+        Arguments.of("13:15 pm"),
+        Arguments.of("12:75"),
+        Arguments.of("7:99"),
+        Arguments.of("0pm"));
+  }
 }

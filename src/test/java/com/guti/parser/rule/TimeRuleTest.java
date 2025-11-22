@@ -1,8 +1,7 @@
 package com.guti.parser.rule;
 
 import static com.guti.TestUtils.tokenOf;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.guti.parser.pipeline.ParseContext;
 import com.guti.parser.pipeline.rule.rules.TimeRule;
@@ -68,8 +67,7 @@ public class TimeRuleTest {
             List.of(tokenOf("At"), tokenOf("5"), tokenOf("30"), tokenOf("pm")),
             LocalTime.of(17, 30)),
         Arguments.of(List.of(tokenOf("At"), tokenOf("7"), tokenOf("15")), LocalTime.of(7, 15)),
-        Arguments.of(
-            List.of(tokenOf("At"), tokenOf("5:15"), tokenOf("pm")), LocalTime.of(17, 15)),
+        Arguments.of(List.of(tokenOf("At"), tokenOf("5:15"), tokenOf("pm")), LocalTime.of(17, 15)),
         Arguments.of(List.of(tokenOf("At"), tokenOf("9"), tokenOf("pm")), LocalTime.of(21, 0)),
         Arguments.of(List.of(tokenOf("10"), tokenOf("45"), tokenOf("am")), LocalTime.of(10, 45)),
         Arguments.of(List.of(tokenOf("At"), tokenOf("07:10")), LocalTime.of(7, 10)),
@@ -79,5 +77,25 @@ public class TimeRuleTest {
         Arguments.of(List.of(tokenOf("14"), tokenOf("5")), LocalTime.of(14, 5)),
         Arguments.of(List.of(tokenOf("06:00")), LocalTime.of(6, 0)),
         Arguments.of(List.of(tokenOf("midnight")), LocalTime.MIDNIGHT));
+  }
+
+  @ParameterizedTest
+  @MethodSource("provideInputsForShouldNotApply")
+  void shouldNotApply(List<Token> inputTokens) {
+    LocalDateTime reference = LocalDateTime.of(2026, 6, 15, 12, 0);
+    ParseContext ctx = new ParseContext(reference);
+    boolean applied = rule.matches(inputTokens, 0) && rule.apply(ctx, inputTokens, 0);
+    assertFalse(applied);
+    assertNull(ctx.getExplicitTime());
+  }
+
+  private static Stream<Arguments> provideInputsForShouldNotApply() {
+    return Stream.of(
+        Arguments.of(List.of(tokenOf("At"), tokenOf("25"))),
+        Arguments.of(List.of(tokenOf("At"), tokenOf("25"), tokenOf("00"), tokenOf("pm"))),
+        Arguments.of(List.of(tokenOf("13:00"), tokenOf("pm"))),
+        Arguments.of(List.of(tokenOf("At"), tokenOf("13:00"), tokenOf("am"))),
+        Arguments.of(List.of(tokenOf("At"), tokenOf("12"), tokenOf("75"))),
+        Arguments.of(List.of(tokenOf("At"), tokenOf("7"), tokenOf("65"), tokenOf("am"))));
   }
 }
