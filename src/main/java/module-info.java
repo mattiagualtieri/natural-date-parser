@@ -1,3 +1,3 @@
-module com.guti.naturaldateparser {
-  exports com.guti.parser;
+module com.ggutim.naturaldateparser {
+  exports com.ggutim.parser;
 }
