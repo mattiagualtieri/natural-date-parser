@@ -57,10 +57,7 @@ public class TimeRule extends Rule {
           ctx.setExplicitTime(value);
           return true;
         },
-        KEYWORD,
-        NUMBER,
-        NUMBER,
-        MERIDIEM);
+        List.of(KEYWORD, NUMBER, NUMBER, MERIDIEM));
   }
 
   private Pattern getAtHourMinutePattern() {
@@ -82,9 +79,7 @@ public class TimeRule extends Rule {
           ctx.setExplicitTime(value);
           return true;
         },
-        KEYWORD,
-        NUMBER,
-        NUMBER);
+        List.of(KEYWORD, NUMBER, NUMBER));
   }
 
   private Pattern getAtTimeMeridiemPattern() {
@@ -102,9 +97,7 @@ public class TimeRule extends Rule {
           ctx.setExplicitTime(value);
           return true;
         },
-        KEYWORD,
-        TIME,
-        MERIDIEM);
+        List.of(KEYWORD, TIME, MERIDIEM));
   }
 
   private Pattern getAtNumberMeridiemPattern() {
@@ -122,9 +115,7 @@ public class TimeRule extends Rule {
           ctx.setExplicitTime(value);
           return true;
         },
-        KEYWORD,
-        NUMBER,
-        MERIDIEM);
+        List.of(KEYWORD, NUMBER, MERIDIEM));
   }
 
   private Pattern getHourMinuteMeridiemPattern() {
@@ -149,9 +140,7 @@ public class TimeRule extends Rule {
           ctx.setExplicitTime(value);
           return true;
         },
-        NUMBER,
-        NUMBER,
-        MERIDIEM);
+        List.of(NUMBER, NUMBER, MERIDIEM));
   }
 
   private Pattern getAtTimePattern() {
@@ -165,8 +154,7 @@ public class TimeRule extends Rule {
           ctx.setExplicitTime(value);
           return true;
         },
-        KEYWORD,
-        TIME);
+        List.of(KEYWORD, TIME));
   }
 
   private Pattern getAtNumberPattern() {
@@ -179,8 +167,7 @@ public class TimeRule extends Rule {
           ctx.setExplicitTime(value);
           return true;
         },
-        KEYWORD,
-        NUMBER);
+        List.of(KEYWORD, NUMBER));
   }
 
   private Pattern getAtTimeKeywordPattern() {
@@ -194,8 +181,7 @@ public class TimeRule extends Rule {
           ctx.setExplicitTime(value);
           return true;
         },
-        KEYWORD,
-        TIME_KEYWORD);
+        List.of(KEYWORD, TIME_KEYWORD));
   }
 
   private Pattern getTimeMeridiemPattern() {
@@ -210,8 +196,7 @@ public class TimeRule extends Rule {
           ctx.setExplicitTime(value);
           return true;
         },
-        TIME,
-        MERIDIEM);
+        List.of(TIME, MERIDIEM));
   }
 
   private Pattern getHourMinutePattern() {
@@ -230,8 +215,7 @@ public class TimeRule extends Rule {
           ctx.setExplicitTime(value);
           return true;
         },
-        NUMBER,
-        NUMBER);
+        List.of(NUMBER, NUMBER));
   }
 
   private Pattern getTimePattern() {
@@ -242,7 +226,7 @@ public class TimeRule extends Rule {
           ctx.setExplicitTime(value);
           return true;
         },
-        TIME);
+        List.of(TIME));
   }
 
   private Pattern getTimeKeywordPattern() {
@@ -253,6 +237,6 @@ public class TimeRule extends Rule {
           ctx.setExplicitTime(value);
           return true;
         },
-        TIME_KEYWORD);
+        List.of(TIME_KEYWORD));
   }
 }

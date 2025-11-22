@@ -4,7 +4,6 @@ import com.guti.parser.pipeline.ParseContext;
 import com.guti.tokenizer.Token;
 import com.guti.tokenizer.TokenType;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Pattern {
@@ -19,8 +18,8 @@ public class Pattern {
     this.resolver = resolver;
   }
 
-  public static Pattern of(String name, PatternResolver resolver, TokenType... parts) {
-    return new Pattern(name, resolver, Arrays.asList(parts));
+  public static Pattern of(String name, PatternResolver resolver, List<TokenType> parts) {
+    return new Pattern(name, resolver, parts);
   }
 
   public String getName() {

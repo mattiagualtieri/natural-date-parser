@@ -31,9 +31,7 @@ public class RelativeQuantityRule extends Rule {
           }
           return false;
         },
-        KEYWORD,
-        NUMBER,
-        UNIT);
+        List.of(KEYWORD, NUMBER, UNIT));
   }
 
   private Pattern getNumberUnitAgoPattern() {
@@ -48,8 +46,6 @@ public class RelativeQuantityRule extends Rule {
           }
           return false;
         },
-        NUMBER,
-        UNIT,
-        KEYWORD);
+        List.of(NUMBER, UNIT, KEYWORD));
   }
 }

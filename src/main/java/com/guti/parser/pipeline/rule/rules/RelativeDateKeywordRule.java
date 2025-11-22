@@ -33,6 +33,6 @@ public class RelativeDateKeywordRule extends Rule {
 
           return true;
         },
-        DATE_KEYWORD);
+        List.of(DATE_KEYWORD));
   }
 }

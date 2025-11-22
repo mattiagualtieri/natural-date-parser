@@ -34,8 +34,7 @@ public class WeekdayRule extends Rule {
           }
           return false;
         },
-        KEYWORD,
-        WEEKDAY);
+        List.of(KEYWORD, WEEKDAY));
   }
 
   private Pattern getWeekdayPattern() {
@@ -46,6 +45,6 @@ public class WeekdayRule extends Rule {
           ctx.setWeekday(value);
           return true;
         },
-        WEEKDAY);
+        List.of(WEEKDAY));
   }
 }

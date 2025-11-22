@@ -41,10 +41,7 @@ public class AbsoluteDateRule extends Rule {
           ctx.setAbsoluteDate(monthDay, month, year);
           return true;
         },
-        NUMBER,
-        KEYWORD,
-        MONTH,
-        YEAR);
+        List.of(NUMBER, KEYWORD, MONTH, YEAR));
   }
 
   private Pattern getNumberMonthYearPattern() {
@@ -58,9 +55,7 @@ public class AbsoluteDateRule extends Rule {
           ctx.setAbsoluteDate(monthDay, month, year);
           return true;
         },
-        NUMBER,
-        MONTH,
-        YEAR);
+        List.of(NUMBER, MONTH, YEAR));
   }
 
   private Pattern getMonthNumberYearPattern() {
@@ -74,9 +69,7 @@ public class AbsoluteDateRule extends Rule {
           ctx.setAbsoluteDate(monthDay, month, year);
           return true;
         },
-        MONTH,
-        NUMBER,
-        YEAR);
+        List.of(MONTH, NUMBER, YEAR));
   }
 
   private Pattern getNumberOfMonthPattern() {
@@ -92,9 +85,7 @@ public class AbsoluteDateRule extends Rule {
           ctx.setAbsoluteDate(monthDay, month, null);
           return true;
         },
-        NUMBER,
-        KEYWORD,
-        MONTH);
+        List.of(NUMBER, KEYWORD, MONTH));
   }
 
   private Pattern getNumberMonthPattern() {
@@ -107,8 +98,7 @@ public class AbsoluteDateRule extends Rule {
           ctx.setAbsoluteDate(monthDay, month, null);
           return true;
         },
-        NUMBER,
-        MONTH);
+        List.of(NUMBER, MONTH));
   }
 
   private Pattern getMonthNumberPattern() {
@@ -121,7 +111,6 @@ public class AbsoluteDateRule extends Rule {
           ctx.setAbsoluteDate(monthDay, month, null);
           return true;
         },
-        MONTH,
-        NUMBER);
+        List.of(MONTH, NUMBER));
   }
 }
